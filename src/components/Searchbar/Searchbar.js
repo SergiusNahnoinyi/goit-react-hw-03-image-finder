@@ -11,10 +11,17 @@ export default class Searchbar extends Component {
     this.setState({ query: e.currentTarget.value });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.onSubmit(this.state.query);
+    this.setState({ query: '' });
+  };
+
   render() {
     return (
       <header className={s.Searchbar}>
-        <form className={s.SearchForm}>
+        <form className={s.SearchForm} onSubmit={this.handleSubmit}>
           <button type="submit" className={s.Button}>
             <BsSearch style={{ width: 20, height: 20 }} />
           </button>
