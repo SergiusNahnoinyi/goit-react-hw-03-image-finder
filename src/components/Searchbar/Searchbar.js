@@ -2,7 +2,13 @@ import { Component } from 'react';
 import s from './Searchbar.module.css';
 
 export default class Searchbar extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
+
+  handleChange = e => {
+    this.setState({ query: e.currentTarget.value });
+  };
 
   render() {
     return (
@@ -15,6 +21,8 @@ export default class Searchbar extends Component {
           <input
             className={s.Input}
             type="text"
+            value={this.state.query}
+            onChange={this.handleChange}
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
