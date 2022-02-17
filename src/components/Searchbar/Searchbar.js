@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { BsSearch } from 'react-icons/bs';
+import { toast } from 'react-toastify';
 import s from './Searchbar.module.css';
 
 export default class Searchbar extends Component {
@@ -14,6 +15,10 @@ export default class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
+    if (this.state.query.trim() === '') {
+      toast.error('Введите название картинки');
+      return;
+    }
     this.props.onSubmit(this.state.query);
     this.setState({ query: '' });
   };

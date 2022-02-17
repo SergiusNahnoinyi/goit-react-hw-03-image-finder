@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './components/Searchbar';
 
 import './App.css';
@@ -16,6 +18,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
+        <ToastContainer />
       </div>
     );
   }
