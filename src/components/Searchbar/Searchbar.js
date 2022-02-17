@@ -16,8 +16,7 @@ export default class Searchbar extends Component {
     e.preventDefault();
 
     if (this.state.query.trim() === '') {
-      toast.error('Введите название картинки');
-      return;
+      return toast.error('Введите название картинки');
     }
     this.props.onSubmit(this.state.query);
     this.setState({ query: '' });
