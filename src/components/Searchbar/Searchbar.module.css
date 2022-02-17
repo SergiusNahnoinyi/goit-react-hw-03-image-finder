@@ -27,12 +27,12 @@
   overflow: hidden;
 }
 
-.SearchForm-button {
+.Button {
   display: inline-block;
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
+  background-image: url('https://cdn-icons.flaticon.com/png/512/2866/premium/2866321.png?token=exp=1645120393~hmac=d724d077a85da3b8cd641f7b0f367d7d');
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -42,11 +42,11 @@
   outline: none;
 }
 
-.SearchForm-button:hover {
+.Button:hover {
   opacity: 1;
 }
 
-.SearchForm-button-label {
+.ButtonLabel {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -58,7 +58,7 @@
   border: 0;
 }
 
-.SearchForm-input {
+.Input {
   display: inline-block;
   width: 100%;
   font: inherit;
@@ -69,7 +69,7 @@
   padding-right: 4px;
 }
 
-.SearchForm-input::placeholder {
+.Input::placeholder {
   font: inherit;
   font-size: 18px;
 }
