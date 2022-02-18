@@ -4,7 +4,9 @@ import ImageGalleryItem from '../ImageGalleryItem';
 import axios from 'axios';
 
 export default class ImageGallery extends Component {
-  state = {};
+  state = {
+    images: null,
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.imageName;
@@ -16,7 +18,7 @@ export default class ImageGallery extends Component {
           `https://pixabay.com/api/?q=${nextName}&page=1&key=24778312-18f63a423fbed9787418fdc16&image_type=photo&orientation=horizontal&per_page=12`,
         )
         .then(response => response.data)
-        .then(console.log);
+        .then(images => this.setState({ images }));
     }
   }
 
