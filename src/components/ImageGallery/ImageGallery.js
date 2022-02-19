@@ -1,6 +1,7 @@
 import s from './ImageGallery.module.css';
 import { Component } from 'react';
 import ImageGalleryItem from '../ImageGalleryItem';
+import Button from '../Button';
 import axios from 'axios';
 // import pixabayAPI from '../services/pixabay-api';
 
@@ -43,15 +44,18 @@ export default class ImageGallery extends Component {
 
     if (status === 'resolved') {
       return (
-        <ul className={s.Gallery}>
-          {images.map(image => (
-            <ImageGalleryItem
-              key={image.id}
-              imageURL={image.webformatURL}
-              name={image.tags}
-            />
-          ))}
-        </ul>
+        <>
+          <ul className={s.Gallery}>
+            {images.map(image => (
+              <ImageGalleryItem
+                key={image.id}
+                imageURL={image.webformatURL}
+                name={image.tags}
+              />
+            ))}
+          </ul>
+          <Button />
+        </>
       );
     }
   }

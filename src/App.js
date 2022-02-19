@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
-import Button from './components/Button';
 
 import './App.css';
 
@@ -21,7 +20,6 @@ export default class App extends Component {
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery imageName={this.state.imageName} />
-        <Button />
         <ToastContainer />
       </div>
     );
