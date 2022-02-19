@@ -2,6 +2,7 @@ import s from './ImageGallery.module.css';
 import { Component } from 'react';
 import ImageGalleryItem from '../ImageGalleryItem';
 import axios from 'axios';
+// import pixabayAPI from '../services/pixabay-api';
 
 const Status = {
   IDLE: 'idle',
@@ -21,9 +22,12 @@ export default class ImageGallery extends Component {
     const nextName = this.props.imageName;
 
     if (prevName !== nextName) {
+      axios.defaults.baseURL = 'https://pixabay.com/api/';
+      const API_KEY = '24778312-18f63a423fbed9787418fdc16';
+
       axios
         .get(
-          `https://pixabay.com/api/?q=${nextName}&page=1&key=24778312-18f63a423fbed9787418fdc16&image_type=photo&orientation=horizontal&per_page=12`,
+          `?q=${nextName}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
         )
         .then(response => response.data.hits)
         .then(images => this.setState({ images, status: Status.RESOLVED }));
