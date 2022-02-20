@@ -3,7 +3,6 @@ import { Component } from 'react';
 import ImageGalleryItem from '../ImageGalleryItem';
 import Button from '../Button';
 import axios from 'axios';
-// import pixabayAPI from '../services/pixabay-api';
 
 const Status = {
   IDLE: 'idle',
@@ -14,7 +13,8 @@ const Status = {
 
 export default class ImageGallery extends Component {
   state = {
-    images: null,
+    currentPage: 1,
+    images: [],
     status: Status.IDLE,
   };
 
@@ -36,7 +36,33 @@ export default class ImageGallery extends Component {
         `?q=${nextName}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
       )
       .then(response => response.data.hits)
-      .then(images => this.setState({ images, status: Status.RESOLVED }));
+      .then(images => {
+        this.setState(prevState => ({
+          images,
+          currentPage: prevState.currentPage + 1,
+          status: Status.RESOLVED,
+        }));
+      });
+  };
+
+  loadMoreImages = () => {
+    axios.defaults.baseURL = 'https://pixabay.com/api/';
+    const API_KEY = '24778312-18f63a423fbed9787418fdc16';
+    const nextName = this.props.imageName;
+    const currentPage = this.state.currentPage;
+
+    return axios
+      .get(
+        `?q=${nextName}&page=${currentPage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
+      )
+      .then(response => response.data.hits)
+      .then(images => {
+        this.setState(prevState => ({
+          images: [...prevState.images, ...images],
+          currentPage: prevState.currentPage + 1,
+          status: Status.RESOLVED,
+        }));
+      });
   };
 
   render() {
@@ -58,7 +84,7 @@ export default class ImageGallery extends Component {
               />
             ))}
           </ul>
-          <Button onClick={this.getImages} />
+          <Button onLoadMore={this.loadMoreImages} />
         </>
       );
     }
