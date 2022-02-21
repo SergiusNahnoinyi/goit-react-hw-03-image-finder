@@ -21,37 +21,22 @@ export default class ImageGallery extends Component {
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.imageName;
     const nextName = this.props.imageName;
+    const prevPage = prevState.currentPage;
+    const currentPage = this.state.currentPage;
 
     if (prevName !== nextName) {
-      this.getImages(nextName);
+      this.getImages(nextName, currentPage);
+    }
+    if (prevPage !== currentPage) {
+      this.getImages(nextName, currentPage);
     }
   }
 
-  getImages = nextName => {
+  getImages = (nextName, currentPage) => {
     axios.defaults.baseURL = 'https://pixabay.com/api/';
     const API_KEY = '24778312-18f63a423fbed9787418fdc16';
 
     axios
-      .get(
-        `?q=${nextName}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
-      )
-      .then(response => response.data.hits)
-      .then(images => {
-        this.setState(prevState => ({
-          images,
-          currentPage: prevState.currentPage + 1,
-          status: Status.RESOLVED,
-        }));
-      });
-  };
-
-  loadMoreImages = () => {
-    axios.defaults.baseURL = 'https://pixabay.com/api/';
-    const API_KEY = '24778312-18f63a423fbed9787418fdc16';
-    const nextName = this.props.imageName;
-    const currentPage = this.state.currentPage;
-
-    return axios
       .get(
         `?q=${nextName}&page=${currentPage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
       )
@@ -59,10 +44,13 @@ export default class ImageGallery extends Component {
       .then(images => {
         this.setState(prevState => ({
           images: [...prevState.images, ...images],
-          currentPage: prevState.currentPage + 1,
           status: Status.RESOLVED,
         }));
       });
+  };
+
+  loadMore = () => {
+    this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
   };
 
   render() {
@@ -84,7 +72,7 @@ export default class ImageGallery extends Component {
               />
             ))}
           </ul>
-          <Button onLoadMore={this.loadMoreImages} />
+          <Button onLoadMore={this.loadMore} />
         </>
       );
     }
