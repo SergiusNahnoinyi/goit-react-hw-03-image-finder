@@ -29,17 +29,12 @@ export default class ImageGallery extends Component {
     if (prevName !== nextName) {
       this.setState(
         { currentPage: 1, images: [], status: Status.PENDING },
-        () =>
-          setTimeout(() => {
-            this.getImages(nextName, 1);
-          }, 1500),
+        () => this.getImages(nextName, 1),
       );
     }
     if (prevPage < currentPage) {
       this.setState({ status: Status.PENDING });
-      setTimeout(() => {
-        this.getImages(nextName, currentPage);
-      }, 1500);
+      this.getImages(nextName, currentPage);
     }
   }
 
