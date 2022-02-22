@@ -29,7 +29,7 @@ export default class ImageGallery extends Component {
         this.getImages(nextName, 1),
       );
     }
-    if (prevPage <= currentPage && prevPage !== currentPage) {
+    if (prevPage < currentPage) {
       this.getImages(nextName, currentPage);
     }
   }
