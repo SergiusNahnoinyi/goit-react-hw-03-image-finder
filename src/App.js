@@ -29,11 +29,11 @@ export default class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery imageName={this.state.imageName} />
+        <ImageGallery
+          imageName={this.state.imageName}
+          handleModal={this.toggleModal}
+        />
         {this.state.showModal && <Modal onClose={this.toggleModal} />}
-        <button type="button" onClick={this.toggleModal} style={{ width: 70 }}>
-          Модалка
-        </button>
         <ToastContainer />
       </div>
     );
