@@ -1,5 +1,6 @@
 import s from './ImageGallery.module.css';
 import { Component } from 'react';
+import { toast } from 'react-toastify';
 import ImageGalleryItem from '../ImageGalleryItem';
 import Button from '../Button';
 import axios from 'axios';
@@ -44,6 +45,11 @@ export default class ImageGallery extends Component {
       )
       .then(response => response.data.hits)
       .then(images => {
+        if (images.length === 0) {
+          toast.error('Ничего не найдено');
+          this.setState({ status: Status.REJECTED });
+          return;
+        }
         this.setState(prevState => ({
           images: [...prevState.images, ...images],
           status: Status.RESOLVED,
@@ -58,7 +64,7 @@ export default class ImageGallery extends Component {
   render() {
     const { images, status } = this.state;
 
-    if (status === 'idle') {
+    if (status === 'idle' || status === 'rejected') {
       return <ul className={s.Gallery}></ul>;
     }
 
