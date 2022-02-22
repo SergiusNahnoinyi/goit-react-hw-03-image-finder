@@ -49,7 +49,7 @@ export default class ImageGallery extends Component {
       });
   };
 
-  loadMore = () => {
+  incrementPage = () => {
     this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
   };
 
@@ -72,7 +72,7 @@ export default class ImageGallery extends Component {
               />
             ))}
           </ul>
-          <Button onLoadMore={this.loadMore} />
+          <Button onLoadMore={this.incrementPage} />
         </>
       );
     }
