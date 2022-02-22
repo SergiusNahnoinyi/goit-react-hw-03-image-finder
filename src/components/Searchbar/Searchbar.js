@@ -1,9 +1,15 @@
 import { Component } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { toast } from 'react-toastify';
+
+import PropTypes from 'prop-types';
 import s from './Searchbar.module.css';
 
 export default class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     query: '',
   };

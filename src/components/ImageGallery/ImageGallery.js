@@ -1,10 +1,14 @@
-import s from './ImageGallery.module.css';
 import { Component } from 'react';
 import { toast } from 'react-toastify';
+
+import PropTypes from 'prop-types';
+import axios from 'axios';
+
 import ImageGalleryItem from '../ImageGalleryItem';
 import Button from '../Button';
 import Loader from '../Loader';
-import axios from 'axios';
+
+import s from './ImageGallery.module.css';
 
 const Status = {
   IDLE: 'idle',
@@ -14,6 +18,11 @@ const Status = {
 };
 
 export default class ImageGallery extends Component {
+  static propTypes = {
+    handleModal: PropTypes.func.isRequired,
+    imageName: PropTypes.string.isRequired,
+  };
+
   state = {
     currentPage: 1,
     images: [],
