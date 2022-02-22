@@ -33,7 +33,6 @@ export default class ImageGallery extends Component {
       );
     }
     if (prevPage < currentPage) {
-      this.setState({ status: Status.PENDING });
       this.getImages(nextName, currentPage);
     }
   }
