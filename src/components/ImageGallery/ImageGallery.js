@@ -25,9 +25,11 @@ export default class ImageGallery extends Component {
     const currentPage = this.state.currentPage;
 
     if (prevName !== nextName) {
-      this.getImages(nextName, currentPage);
+      this.setState({ currentPage: 1, images: [] }, () =>
+        this.getImages(nextName, 1),
+      );
     }
-    if (prevPage !== currentPage) {
+    if (prevPage <= currentPage && prevPage !== currentPage) {
       this.getImages(nextName, currentPage);
     }
   }
