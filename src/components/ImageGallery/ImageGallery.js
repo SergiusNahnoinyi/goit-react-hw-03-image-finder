@@ -63,6 +63,10 @@ export default class ImageGallery extends Component {
     this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
   };
 
+  handleImageClick = event => {
+    this.props.handleModal(event.target.lowsrc);
+  };
+
   render() {
     const { images, status } = this.state;
 
@@ -80,9 +84,10 @@ export default class ImageGallery extends Component {
           <ul className={s.Gallery}>
             {images.map(image => (
               <ImageGalleryItem
-                onClick={this.props.handleModal}
+                onClick={this.handleImageClick}
                 key={image.id}
                 imageURL={image.webformatURL}
+                largeImage={image.largeImageURL}
                 name={image.tags}
               />
             ))}

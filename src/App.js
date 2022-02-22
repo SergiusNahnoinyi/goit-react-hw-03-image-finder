@@ -13,27 +13,28 @@ export default class App extends Component {
   state = {
     imageName: '',
     showModal: false,
+    stateURL: '',
   };
 
   handleFormSubmit = query => {
     this.setState({ imageName: query });
   };
 
-  toggleModal = () => {
+  toggleModal = url => {
     this.setState(({ showModal }) => ({
+      stateURL: url,
       showModal: !showModal,
     }));
   };
 
   render() {
+    const { imageName, showModal, stateURL } = this.state;
+
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery
-          imageName={this.state.imageName}
-          handleModal={this.toggleModal}
-        />
-        {this.state.showModal && <Modal onClose={this.toggleModal} />}
+        <ImageGallery imageName={imageName} handleModal={this.toggleModal} />
+        {showModal && <Modal onClose={this.toggleModal} imageURL={stateURL} />}
         <ToastContainer />
       </div>
     );
