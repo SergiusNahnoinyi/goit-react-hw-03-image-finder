@@ -31,6 +31,9 @@ export default class App extends Component {
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery imageName={this.state.imageName} />
         {this.state.showModal && <Modal onClose={this.toggleModal} />}
+        <button type="button" onClick={this.toggleModal} style={{ width: 70 }}>
+          Модалка
+        </button>
         <ToastContainer />
       </div>
     );
