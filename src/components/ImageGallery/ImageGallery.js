@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { toast } from 'react-toastify';
 import ImageGalleryItem from '../ImageGalleryItem';
 import Button from '../Button';
+import Loader from '../Loader';
 import axios from 'axios';
 
 const Status = {
@@ -26,12 +27,19 @@ export default class ImageGallery extends Component {
     const currentPage = this.state.currentPage;
 
     if (prevName !== nextName) {
-      this.setState({ currentPage: 1, images: [] }, () =>
-        this.getImages(nextName, 1),
+      this.setState(
+        { currentPage: 1, images: [], status: Status.PENDING },
+        () =>
+          setTimeout(() => {
+            this.getImages(nextName, 1);
+          }, 1500),
       );
     }
     if (prevPage < currentPage) {
-      this.getImages(nextName, currentPage);
+      this.setState({ status: Status.PENDING });
+      setTimeout(() => {
+        this.getImages(nextName, currentPage);
+      }, 1500);
     }
   }
 
@@ -66,6 +74,10 @@ export default class ImageGallery extends Component {
 
     if (status === 'idle' || status === 'rejected') {
       return <ul className={s.Gallery}></ul>;
+    }
+
+    if (status === 'pending') {
+      return <Loader />;
     }
 
     if (status === 'resolved') {
