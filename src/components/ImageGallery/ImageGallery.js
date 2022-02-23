@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { toast } from 'react-toastify';
 
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import pixabayApi from '../../services/pixabayApi';
 
 import ImageGalleryItem from '../ImageGalleryItem';
 import Button from '../Button';
@@ -47,25 +47,17 @@ export default class ImageGallery extends Component {
   }
 
   getImages = (nextName, currentPage) => {
-    axios.defaults.baseURL = 'https://pixabay.com/api/';
-    const API_KEY = '24778312-18f63a423fbed9787418fdc16';
-
-    axios
-      .get(
-        `?q=${nextName}&page=${currentPage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
-      )
-      .then(response => response.data.hits)
-      .then(images => {
-        if (images.length === 0) {
-          toast.error('Ничего не найдено');
-          this.setState({ status: Status.REJECTED });
-          return;
-        }
-        this.setState(prevState => ({
-          images: [...prevState.images, ...images],
-          status: Status.RESOLVED,
-        }));
-      });
+    pixabayApi.fetchImages(nextName, currentPage).then(images => {
+      if (images.length === 0) {
+        toast.error('Ничего не найдено');
+        this.setState({ status: Status.REJECTED });
+        return;
+      }
+      this.setState(prevState => ({
+        images: [...prevState.images, ...images],
+        status: Status.RESOLVED,
+      }));
+    });
   };
 
   incrementPage = () => {
